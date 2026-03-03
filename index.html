@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en" data-sds-mode="dark" class="sds-spaceship">
+
+<head>
+    <!-- <meta charset="UTF-8"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="./Styles/main.b3eef1d66186541b6155.css"
+        data-ilc-instructions="affects-global-scope">
+    <link rel="stylesheet" href="./Styles/index.2eca8167b901d659db9a.css">
+    <link rel="stylesheet" href="./Styles/spaceship.ea7c55f67bc93280c0ec.css">
+    <link rel="stylesheet" href="./Styles/style.css" data-ilc-instructions="affects-global-scope">
+    <link rel="stylesheet" href="./Styles/app.a79643edd72a8bb9783d.css"
+        data-fragment-id="@portal/ai-builder-mini-launcher" data-ilc-usages="1">
+    <link rel="stylesheet" href="./Styles/app.c3c7feb8a0cd73ba1ed6.css"
+        data-fragment-id="@portal/helperwidgetsui" data-ilc-usages="1">
+    <link rel="stylesheet" href="./Styles/app.10316838e5835518fae6.css"
+        data-fragment-id="@portal/layoutfragmentsui" data-ilc-usages="2">
+    <link rel="stylesheet" href="./Styles/app.be68077ba529c5ced4b6.css"
+        data-fragment-id="@portal/userrestrictions-ui" data-ilc-usages="1">
+    <link rel="stylesheet" href="./Styles/app.347d1da4482034f5a864.css"
+        data-fragment-id="@portal/notificationsubscribeui" data-ilc-usages="1">
+    <link rel="stylesheet" href="./Styles/app.c1ff1777ad06a6fc39f5.css" data-ilc-usages="1">
+    <link rel="stylesheet" href="./Styles/app.3f571e0b7a6af8199b0e.css" data-ilc-usages="1">
+    <link rel="stylesheet" href="./Styles/colors-3-stub.ad6f40cb049e03c8f214.css">
+    <link rel="stylesheet" href="./Styles/stub-styles.e0b6f1d2538ed030ed8d.css">
+    <link type="text/css" rel="stylesheet" href="./Styles/app.6338b8e5a7557df261d8.css"
+        data-ilc-usages="1">
+    <link rel="stylesheet" href="./Styles/app.8f4c6c7eb6009ec4ae06.css" data-ilc-usages="1">
+    <link rel="stylesheet" href="./Styles/paint.css">
+</head>
+
+<body translate="no" style="--gb-scroll-lock-padding-right: 0;">
+    <div class="splatter splatter--left" aria-hidden="true"></div>
+    <div class="splatter splatter--right" aria-hidden="true"></div>
+
+    <script>
+        (() => {
+        const BASE_SELECTOR = ".splatter";
+        const CLONE_ATTR = "data-splatter-clone";
+
+        function clearClones() {
+            document.querySelectorAll(`${BASE_SELECTOR}[${CLONE_ATTR}]`).forEach(n => n.remove());
+        }
+
+        function repeatSplatters() {
+            const leftBase  = document.querySelector(".splatter--left");
+            const rightBase = document.querySelector(".splatter--right");
+            if (!leftBase || !rightBase) return;
+
+            clearClones();
+
+            const pageH = Math.max(
+            document.body.scrollHeight,
+            document.documentElement.scrollHeight
+            );
+            const viewH = window.innerHeight || document.documentElement.clientHeight;
+
+            const tiles = Math.ceil(pageH / viewH);
+
+            // Make each "tile" exactly viewport height.
+            // IMPORTANT: don't use bottom:0 for clones (it makes them stretch weirdly).
+            [leftBase, rightBase].forEach(el => {
+            el.style.height = viewH + "px";
+            el.style.top = "0px";
+            el.style.bottom = "auto";
+            });
+
+            for (let i = 1; i < tiles; i++) {
+            const y = i * viewH;
+
+            const l = leftBase.cloneNode(true);
+            l.setAttribute(CLONE_ATTR, "true");
+            l.style.top = y + "px";
+            l.style.bottom = "auto";
+            l.style.height = viewH + "px";
+            l.style.transform = ""; // ensure no drift from transforms
+            leftBase.parentNode.insertBefore(l, leftBase.nextSibling);
+
+            const r = rightBase.cloneNode(true);
+            r.setAttribute(CLONE_ATTR, "true");
+            r.style.top = y + "px";
+            r.style.bottom = "auto";
+            r.style.height = viewH + "px";
+            // keep the mirror only (no translate)
+            r.style.transform = "scaleX(-1)";
+            rightBase.parentNode.insertBefore(r, rightBase.nextSibling);
+            }
+        }
+
+        window.addEventListener("load", repeatSplatters);
+        window.addEventListener("resize", repeatSplatters);
+        new ResizeObserver(repeatSplatters).observe(document.body);
+        })();
+    </script>
+
+    <div id="body">
+        <div class="app-container">
+            <div class="spacemail-landing-scope gb-scope-sds sds-spacemail" data-sds-mode="true">
+                <div class="gb-shape-divider smm-hero gb-mb-sm-4 gb-mb-md-1 gb-mb-lg-6 gb-shape-divider--bottom-right">
+                    <div class="smm-hero__container gb-container">
+                        <div class="gb-row gb-row-md--center gb-row-lg--left">
+                            <div class="gb-col-12 gb-col-md-8 gb-col-xl-7">
+                                <h1 class="smm-nameplate gb-mb-0">Few-Offs</h1>
+                                <h2 class="smm-h1 gb-mb-2">Wij regelen de zichtbaarheid.</h2>
+                                <h3 class="gb-mb-5 gb-text-base">Jij focust op je merk.
+
+                                </h3>
+                                <div class="gb-row gb-row--center gb-row--gutter-xs gb-row-lg--left">
+                                    <div class="gb-col-8 gb-col-md-7 gb-col-lg-auto gb-mb-2"><a href="https://few-offs.netlify.app"><button data-zid="choosePlanButton"
+                                            class="gb-button gb-button--block gb-button--gray" type="button"><span
+                                                class="gb-button__text">Try Our Demo</span></button></a></div>
+                                    <!-- <div class="gb-col-8 gb-col-md-7 gb-col-lg-auto gb-mb-2"><a data-zid="loginToSpacemail"
+                                            target="_blank" class="gb-ml-lg-1 gb-button gb-button--block gb-button--gray-muted"
+                                            href="https://few-offs.netlify.app"><svg xmlns="http://www.w3.org/2000/svg"
+                                                width="1em" height="1em" fill="none" viewBox="0 0 24 24" aria-hidden="true"
+                                                class="gb-icon-svg gb-button__icon gb-button__icon--trailing">
+                                                <path fill="currentColor" fill-rule="evenodd"
+                                                    d="M21 10a1 1 0 0 0 1-1V3a1.006 1.006 0 0 0-1-1h-6a1 1 0 1 0 0 2h3.586l-9.293 9.293a.999.999 0 1 0 1.414 1.414L20 5.414V9a1 1 0 0 0 1 1m-3 3a1 1 0 1 1 2 0v5.867A3.137 3.137 0 0 1 16.866 22H5.134A3.137 3.137 0 0 1 2 18.867V7.133A3.137 3.137 0 0 1 5.134 4H11a1 1 0 1 1 0 2H5.134C4.509 6 4 6.508 4 7.133v11.734C4 19.492 4.509 20 5.134 20h11.732c.625 0 1.134-.508 1.134-1.133z"
+                                                    clip-rule="evenodd"></path>
+                                            </svg><span class="gb-button__text">Log in with us</span></a></div> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <section data-zid="featuresSection"
+                    class="gb-container gb-pb-sm-2 gb-pb-lg-1 gb-pt-lg-6 gb-mb-md-3 gb-mb-lg-0 gb-text-center gb-text-lg-left">
+                    <div class="gb-row gb-row--no-gutters gb-row-md--center gb-row--middle smm-mb-80">
+                        <div class="gb-col-12 gb-col-md-8 gb-col-lg-6 gb-pr-lg-2"><img
+                                src="./Images/SpacemailBenefit01@2x-dark.1157ad535eff214afd67.png"
+                                alt="Send a strong impression" loading="lazy"></div>
+                        <div data-zid="featureText"
+                            class="gb-col-12 gb-col-md-8 gb-col-lg-6 gb-px-2 gb-px-lg-3 gb-px-hg-6 gb-pl-xl-6 gb-pt-1 gb-pt-lg-0">
+                            <h2 class="smm-feature-title gb-mb-1 gb-mb-sm-2 gb-mb-lg-3">Maak een sterke indruk</h2>
+                            <p class="smm-feature-subtitle gb-mb-0">Een gemeenschappelijk platform voor een makkelijke consumenten ervaring.</p>
+                        </div>
+                    </div>
+                    <div class="gb-row gb-row--no-gutters gb-row-md--center gb-row--middle smm-mb-80">
+                        <div class="gb-col-12 gb-col-md-8 gb-col-lg-6 gb-col-lg--last gb-pl-lg-2"><img
+                                src="./Images/SpacemailBenefit02@2x-dark.84d4d900321edf4d0c4f.png"
+                                alt="Peak performance" loading="lazy"></div>
+                        <div data-zid="featureText"
+                            class="gb-col-12 gb-col-md-8 gb-col-lg-6 gb-px-2 gb-px-lg-3 gb-px-hg-6 gb-pl-xl-6 gb-pt-1 gb-pt-lg-0">
+                            <h2 class="smm-feature-title gb-mb-1 gb-mb-sm-2 gb-mb-lg-3">Makkelijk te integreren met Shopify</h2>
+                            <p class="smm-feature-subtitle gb-mb-0">Download onze Shopify app en doe voort zoals voorheen!</p>
+                        </div>
+                    </div>
+                    <div class="gb-row gb-row--no-gutters gb-row-md--center gb-row--middle smm-mb-80">
+                        <div class="gb-col-12 gb-col-md-8 gb-col-lg-6 gb-pr-lg-2"><img
+                                src="./Images/SpacemailBenefit03@2x-dark.c234b7adc4500c8cc0fd.png"
+                                alt="Get security that evolves" loading="lazy"></div>
+                        <div data-zid="featureText"
+                            class="gb-col-12 gb-col-md-8 gb-col-lg-6 gb-px-2 gb-px-lg-3 gb-px-hg-6 gb-pl-xl-6 gb-pt-1 gb-pt-lg-0">
+                            <h2 class="smm-feature-title gb-mb-1 gb-mb-sm-2 gb-mb-lg-3">Gelijke kansen voor elk merk</h2>
+                            <p class="smm-feature-subtitle gb-mb-0">Een algoritme dat je laat concurreren op basis van product i.p.v. bekendheid.</p>
+                        </div>
+                    </div>
+                </section>
+                <section class="smm-design" data-zid="safetySection">
+                    <div class="smm-design__content gb-container gb-row gb-row--center">
+                        <div class="gb-text-center gb-col-12 gb-col-xl-10 gb-col-hg-8">
+                            <h2 class="smm-h2 gb-mb-2 gb-mb-xl-3">Design om van te houden.</h2>
+                            <p class="smm-subtitle-small gb-mb-0">Van concept tot collectie: wij zorgen dat jouw stijl opvalt én verkoopt.</p>
+                        </div>
+                    </div>
+                    <div class="smm-design__media"><img
+                            src="./Images/Devices_DM@2x.123d0821c59e074c66ab.png" alt="Design you’ll love"
+                            loading="lazy"></div>
+                    <div class="gb-text-center"><a class="gb-button gb-button--brand-muted"
+                            href="https://few-offs.netlify.app"><span class="gb-button__text">See
+                                Demo</span></a></div>
+                </section>
+                <!-- <section class="gb-container gb-pt-lg-6" data-zid="makeEmailEffortless">
+                    <div class="gb-row gb-row--center smm-mb-96 gb-pt-lg-3">
+                        <div class="gb-col-12 gb-col-md-8 gb-col-xl-10 gb-text-center">
+                            <h2 class="smm-h2 gb-mb-2 gb-mb-xl-3">Make email effortless</h2>
+                            <p class="smm-subtitle-small gb-mb-0">How Spacemail takes simplicity to new levels</p>
+                        </div>
+                    </div>
+                    <div class="smm-mb-96">
+                        <div class="gb-row gb-row--middle gb-row--line gb-dir--column gb-dir-lg--row">
+                            <div class="gb-col-lg-6 gb-col-12 gb-col-lg--last">
+                                <div class="gb-carousel smm-effortless smm-ovh" aria-roledescription="Carousel">
+                                    <div class="gb-carousel__main">
+                                        <div class="gb-glide gb-glide--swipeable gb-glide--ltr gb-glide--carousel">
+                                            <div class="gb-glide__track" data-glide-el="track">
+                                                <div class="gb-glide__slides" aria-atomic="false" aria-live="polite"
+                                                    style="transition: transform ease-out; width: 3792px; transform: translate3d(-1264px, 0px, 0px);">
+                                                    <div id="slide-0-:r1:"
+                                                        class="gb-glide__slide gb-glide__slide--clone" role="group"
+                                                        aria-roledescription="Slide" aria-label="Slide 0"
+                                                        style="width: 632px; margin-right: 0px;">
+                                                        <div><img width="344" height="258" class="smm-vat"
+                                                                src="./Spacemail_files/SpacemailMediaSection01@2x-dark.6eea7f518928e7c9bae4.png"
+                                                                alt="Easy setup" data-key="0"></div>
+                                                    </div>
+                                                    <div id="slide-1-:r1:"
+                                                        class="gb-glide__slide gb-glide__slide--clone" role="group"
+                                                        aria-roledescription="Slide" aria-label="Slide 1"
+                                                        style="width: 632px; margin-left: 0px; margin-right: 0px;">
+                                                        <div><img width="344" height="258" class="smm-vat"
+                                                                src="./Spacemail_files/SpacemailMediaSection02@2x-dark.45c1377e2aad1429e460.png"
+                                                                alt="Pure simplicity" data-key="1"></div>
+                                                    </div>
+                                                    <div id="slide-0-:r1:"
+                                                        class="gb-glide__slide gb-glide__slide--active" role="group"
+                                                        aria-roledescription="Slide" aria-label="Slide 0"
+                                                        style="width: 632px; margin-left: 0px; margin-right: 0px;">
+                                                        <div><img width="344" height="258" class="smm-vat"
+                                                                src="./Spacemail_files/SpacemailMediaSection01@2x-dark.6eea7f518928e7c9bae4.png"
+                                                                alt="Easy setup" data-key="0"></div>
+                                                    </div>
+                                                    <div id="slide-1-:r1:" class="gb-glide__slide" role="group"
+                                                        aria-roledescription="Slide" aria-label="Slide 1"
+                                                        style="width: 632px; margin-left: 0px; margin-right: 0px;">
+                                                        <div><img width="344" height="258" class="smm-vat"
+                                                                src="./Spacemail_files/SpacemailMediaSection02@2x-dark.45c1377e2aad1429e460.png"
+                                                                alt="Pure simplicity" data-key="1"></div>
+                                                    </div>
+                                                    <div id="slide-0-:r1:"
+                                                        class="gb-glide__slide gb-glide__slide--clone" role="group"
+                                                        aria-roledescription="Slide" aria-label="Slide 0"
+                                                        style="width: 632px; margin-left: 0px; margin-right: 0px;">
+                                                        <div><img width="344" height="258" class="smm-vat"
+                                                                src="./Spacemail_files/SpacemailMediaSection01@2x-dark.6eea7f518928e7c9bae4.png"
+                                                                alt="Easy setup" data-key="0"></div>
+                                                    </div>
+                                                    <div id="slide-1-:r1:"
+                                                        class="gb-glide__slide gb-glide__slide--clone" role="group"
+                                                        aria-roledescription="Slide" aria-label="Slide 1"
+                                                        style="width: 632px; margin-left: 0px;">
+                                                        <div><img width="344" height="258" class="smm-vat"
+                                                                src="./Spacemail_files/SpacemailMediaSection02@2x-dark.45c1377e2aad1429e460.png"
+                                                                alt="Pure simplicity" data-key="1"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div role="group" aria-label="Choose slide to display"
+                                        class="gb-carousel-indicator"><button type="button"
+                                            class="gb-carousel-indicator__item gb-is-active"
+                                            aria-labelledby="slide-0-:r1:" aria-disabled="true">Slide 0</button><button
+                                            type="button" class="gb-carousel-indicator__item"
+                                            aria-labelledby="slide-1-:r1:" aria-disabled="false">Slide 1</button></div>
+                                </div>
+                            </div>
+                            <div class="gb-dir--column gb-dir-lg--row gb-col-lg-6 gb-col-12">
+                                <div role="group" aria-label="Choose slide to display"
+                                    class="gb-carousel-indicator gb-dir-lg--column gb-row--middle gb-row--line gb-mb-3 gb-mt-5 gb-my-lg-0 gb-mr-lg-5">
+                                    <button type="button"
+                                        class="gb-carousel-indicator__item gb-px-small gb-py-small gb-is-active">Slide
+                                        1</button><button type="button"
+                                        class="gb-carousel-indicator__item gb-px-small gb-py-small">Slide 2</button>
+                                </div>
+                                <div class="gb-dir--column gb-text-center gb-text-lg-left">
+                                    <div
+                                        class="smm-effortless__text-slider gb-d-lg-block smm-is-clickable smm-is-active">
+                                        <h4 class="gb-h4 gb-mb-0">Easy setup</h4>
+                                        <p class="gb-h4 gb-text-base gb-mb-3">One-click Unbox™ links Spacemail to your
+                                            domain — no technical know-how required.</p>
+                                    </div>
+                                    <div class="smm-effortless__text-slider gb-d-lg-block smm-is-clickable gb-d-none">
+                                        <h4 class="gb-h4 gb-mb-0">Pure simplicity</h4>
+                                        <p class="gb-h4 gb-text-base gb-mb-3">Easily manage subscriptions, create
+                                            aliases, enable catch-all, and much more.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="smm-migrate-section">
+                    <div class="gb-container">
+                        <div class="gb-row gb-row--center gb-row--middle">
+                            <div
+                                class="smm-migrate-section__image gb-col-9 gb-col-md-6 gb-px-md-2 gb-px-lg-6 gb-px-xl-1 gb-mb-2 gb-mb-sm-3 gb-mb-lg-0">
+                                <img class="smm-vat"
+                                    src="./Spacemail_files/SpacemailMigration@2x.8097e88fbab16ec4cf2b.png"
+                                    width="632" height="632" alt="Bring your emails with you" loading="lazy"></div>
+                            <div
+                                class="gb-col-12 gb-col-lg-6 gb-px-md-6 gb-px-lg-2 gb-px-xl-6 gb-text-center gb-text-lg-left">
+                                <h3 class="smm-migrate-section__title gb-mb-2 gb-mb-hg-3">Bring your emails with you
+                                </h3>
+                                <h4 class="smm-migrate-section__subtitle gb-mb-4 gb-mb-xl-5">Migrating your emails into
+                                    Spacemail is quick, easy, and free. Use our built-in migration tool to transfer your
+                                    emails in just a few steps.</h4><button data-zid="migrateBtn"
+                                    class="gb-mb-xl-5 gb-button gb-button--gray gb-button--lg" type="button"><span
+                                        class="gb-button__text">Migrate now</span></button>
+                            </div>
+                        </div>
+                    </div>
+                </section> -->
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
