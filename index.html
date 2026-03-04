@@ -32,35 +32,36 @@
 </head>
 
 <body translate="no" style="--gb-scroll-lock-padding-right: 0;">
-    <div class="splatter splatter--left" aria-hidden="true"></div>
-    <div class="splatter splatter--right" aria-hidden="true"></div>
+    <div class="splatter-layer" aria-hidden="true">
+        <div class="splatter splatter--left"></div>
+        <div class="splatter splatter--right"></div>
+    </div>
 
     <script>
         (() => {
-        const BASE_SELECTOR = ".splatter";
         const CLONE_ATTR = "data-splatter-clone";
+        let scheduled = false;
 
-        function clearClones() {
-            document.querySelectorAll(`${BASE_SELECTOR}[${CLONE_ATTR}]`).forEach(n => n.remove());
+        function clearClones(layer) {
+            layer.querySelectorAll(`.splatter[${CLONE_ATTR}]`).forEach(n => n.remove());
         }
 
         function repeatSplatters() {
-            const leftBase  = document.querySelector(".splatter--left");
-            const rightBase = document.querySelector(".splatter--right");
-            if (!leftBase || !rightBase) return;
+            const layer = document.querySelector(".splatter-layer");
+            const leftBase  = layer?.querySelector(".splatter--left");
+            const rightBase = layer?.querySelector(".splatter--right");
+            const content   = document.querySelector("#body"); // your real page content
+            if (!layer || !leftBase || !rightBase || !content) return;
 
-            clearClones();
+            // Measure content height, not document height (prevents feedback from splatters)
+            const pageH = content.getBoundingClientRect().height;
+            layer.style.height = pageH + "px";
 
-            const pageH = Math.max(
-            document.body.scrollHeight,
-            document.documentElement.scrollHeight
-            );
+            clearClones(layer);
+
             const viewH = window.innerHeight || document.documentElement.clientHeight;
-
             const tiles = Math.ceil(pageH / viewH);
 
-            // Make each "tile" exactly viewport height.
-            // IMPORTANT: don't use bottom:0 for clones (it makes them stretch weirdly).
             [leftBase, rightBase].forEach(el => {
             el.style.height = viewH + "px";
             el.style.top = "0px";
@@ -73,25 +74,28 @@
             const l = leftBase.cloneNode(true);
             l.setAttribute(CLONE_ATTR, "true");
             l.style.top = y + "px";
-            l.style.bottom = "auto";
             l.style.height = viewH + "px";
-            l.style.transform = ""; // ensure no drift from transforms
-            leftBase.parentNode.insertBefore(l, leftBase.nextSibling);
+            l.style.transform = "";
+            layer.appendChild(l);
 
             const r = rightBase.cloneNode(true);
             r.setAttribute(CLONE_ATTR, "true");
             r.style.top = y + "px";
-            r.style.bottom = "auto";
             r.style.height = viewH + "px";
-            // keep the mirror only (no translate)
             r.style.transform = "scaleX(-1)";
-            rightBase.parentNode.insertBefore(r, rightBase.nextSibling);
+            layer.appendChild(r);
             }
         }
 
-        window.addEventListener("load", repeatSplatters);
-        window.addEventListener("resize", repeatSplatters);
-        new ResizeObserver(repeatSplatters).observe(document.body);
+        function schedule() {
+            if (scheduled) return;
+            scheduled = true;
+            requestAnimationFrame(() => { scheduled = false; repeatSplatters(); });
+        }
+
+        addEventListener("load", schedule);
+        addEventListener("resize", schedule);
+        document.addEventListener("load", schedule, true); // catches lazy img loads
         })();
     </script>
 
